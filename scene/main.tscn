@@ -1,0 +1,665 @@
+[gd_scene load_steps=27 format=3 uid="uid://evdfx6qqlyv4"]
+
+[ext_resource type="StyleBox" uid="uid://cgr2rtggk7ycp" path="res://resource/padded.stylebox" id="1_5hote"]
+[ext_resource type="Script" path="res://script/main.gd" id="1_16a6b"]
+[ext_resource type="Script" path="res://script/component/praytimes.gd" id="1_ondor"]
+[ext_resource type="FontFile" uid="uid://drgbasabdvfq" path="res://font/BebasNeue-Regular.ttf" id="2_3aklg"]
+[ext_resource type="Script" path="res://script/object/date.gd" id="2_yyhkw"]
+[ext_resource type="FontFile" uid="uid://dsdiyhd717i2v" path="res://font/RobotoCondensed-Regular.ttf" id="3_g03e7"]
+[ext_resource type="FontFile" uid="uid://dhibeydk3b3a5" path="res://font/RobotoCondensed-Bold.ttf" id="3_s7vn8"]
+[ext_resource type="Script" path="res://script/object/time.gd" id="4_wqg7m"]
+[ext_resource type="Script" path="res://script/component/slideshow.gd" id="5_w2bep"]
+[ext_resource type="Script" path="res://script/object/current.gd" id="7_wucjj"]
+[ext_resource type="Script" path="res://script/object/notifier.gd" id="11_g8sg1"]
+[ext_resource type="Script" path="res://script/object/settings.gd" id="12_85av1"]
+[ext_resource type="Theme" uid="uid://wy2yk5u82e54" path="res://resource/setting.theme" id="12_c2xuy"]
+[ext_resource type="StyleBox" uid="uid://cgbcrgnbpxddj" path="res://resource/hover.stylebox" id="12_ugoyx"]
+[ext_resource type="Texture2D" uid="uid://dktqy4vw2euqg" path="res://image/sweetie-16-1x.png" id="15_cr25t"]
+
+[sub_resource type="FontVariation" id="FontVariation_fdxpj"]
+base_font = ExtResource("3_s7vn8")
+spacing_top = -6
+spacing_bottom = -6
+
+[sub_resource type="FontVariation" id="FontVariation_7ous0"]
+base_font = ExtResource("2_3aklg")
+spacing_top = -25
+spacing_bottom = -55
+
+[sub_resource type="FontVariation" id="FontVariation_uxald"]
+base_font = ExtResource("2_3aklg")
+spacing_top = -45
+spacing_bottom = -30
+
+[sub_resource type="FontVariation" id="FontVariation_3ghj7"]
+base_font = ExtResource("2_3aklg")
+spacing_top = -8
+
+[sub_resource type="FontVariation" id="FontVariation_ub6ls"]
+base_font = ExtResource("3_s7vn8")
+spacing_top = -12
+spacing_bottom = -22
+
+[sub_resource type="FontVariation" id="FontVariation_3qbd6"]
+base_font = ExtResource("3_g03e7")
+spacing_top = -5
+spacing_bottom = -4
+
+[sub_resource type="FontVariation" id="FontVariation_clvhm"]
+base_font = ExtResource("3_g03e7")
+spacing_top = -10
+spacing_bottom = -15
+
+[sub_resource type="FontVariation" id="FontVariation_d5arq"]
+base_font = ExtResource("3_g03e7")
+spacing_top = -6
+spacing_bottom = -6
+
+[sub_resource type="FontVariation" id="FontVariation_d3tvl"]
+base_font = ExtResource("2_3aklg")
+spacing_top = -25
+spacing_bottom = -50
+
+[sub_resource type="FontVariation" id="FontVariation_8nw5c"]
+base_font = ExtResource("3_s7vn8")
+spacing_top = -6
+spacing_bottom = -6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5c6v"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.243137, 0.243137, 0.243137, 1)
+corner_detail = 1
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_16a6b")
+
+[node name="PrayTimes" type="Node" parent="."]
+script = ExtResource("1_ondor")
+
+[node name="Content" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Date" type="PanelContainer" parent="Content/VBoxContainer"]
+self_modulate = Color(0.101961, 0.109804, 0.172549, 1)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_5hote")
+script = ExtResource("2_yyhkw")
+node_weekday_g_path = NodePath("HBoxContainer/Weekday/G")
+node_weekday_h_path = NodePath("HBoxContainer/Weekday/H")
+node_day_g_path = NodePath("HBoxContainer/Day/G")
+node_day_h_path = NodePath("HBoxContainer/Day/H")
+node_month_g_path = NodePath("HBoxContainer/Month/G")
+node_month_h_path = NodePath("HBoxContainer/Month/H")
+node_year_g_path = NodePath("HBoxContainer/Year/G")
+node_year_h_path = NodePath("HBoxContainer/Year/H")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/VBoxContainer/Date"]
+layout_mode = 2
+
+[node name="Weekday" type="VBoxContainer" parent="Content/VBoxContainer/Date/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="G" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Weekday"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "Sunday"
+
+[node name="H" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Weekday"]
+self_modulate = Color(1, 0.803922, 0.458824, 1)
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "Ahad"
+
+[node name="Day" type="VBoxContainer" parent="Content/VBoxContainer/Date/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="G" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Day"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "12"
+horizontal_alignment = 1
+
+[node name="H" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Day"]
+self_modulate = Color(1, 0.803922, 0.458824, 1)
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "31"
+horizontal_alignment = 1
+
+[node name="Month" type="VBoxContainer" parent="Content/VBoxContainer/Date/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="G" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Month"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "December"
+horizontal_alignment = 1
+
+[node name="H" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Month"]
+self_modulate = Color(1, 0.803922, 0.458824, 1)
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "Jumada al-Awwal"
+horizontal_alignment = 1
+
+[node name="Year" type="VBoxContainer" parent="Content/VBoxContainer/Date/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="G" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Year"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "2000"
+horizontal_alignment = 2
+
+[node name="H" type="Label" parent="Content/VBoxContainer/Date/HBoxContainer/Year"]
+self_modulate = Color(1, 0.803922, 0.458824, 1)
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_fdxpj")
+theme_override_font_sizes/font_size = 24
+text = "1445"
+horizontal_alignment = 2
+
+[node name="Time" type="PanelContainer" parent="Content/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("1_5hote")
+script = ExtResource("4_wqg7m")
+node_hour_path = NodePath("HBoxContainer/Hour")
+node_minute_path = NodePath("HBoxContainer/Minute")
+node_second_path = NodePath("HBoxContainer/Second")
+node_period_path = NodePath("HBoxContainer/Period")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/VBoxContainer/Time"]
+modulate = Color(0.101961, 0.109804, 0.172549, 1)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Hour" type="Label" parent="Content/VBoxContainer/Time/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_7ous0")
+theme_override_font_sizes/font_size = 180
+text = "12"
+
+[node name="Second" type="CenterContainer" parent="Content/VBoxContainer/Time/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Content/VBoxContainer/Time/HBoxContainer/Second"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Content/VBoxContainer/Time/HBoxContainer/Second/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.14159
+
+[node name="Label3" type="Label" parent="Content/VBoxContainer/Time/HBoxContainer/Second/Control/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -50.0
+offset_right = 8.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_uxald")
+theme_override_font_sizes/font_size = 180
+text = "."
+
+[node name="Label2" type="Label" parent="Content/VBoxContainer/Time/HBoxContainer/Second/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -50.0
+offset_right = 8.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_uxald")
+theme_override_font_sizes/font_size = 180
+text = "."
+
+[node name="Minute" type="Label" parent="Content/VBoxContainer/Time/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_7ous0")
+theme_override_font_sizes/font_size = 175
+text = "34"
+vertical_alignment = 1
+
+[node name="Period" type="Label" parent="Content/VBoxContainer/Time/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3ghj7")
+theme_override_font_sizes/font_size = 38
+text = "PM"
+
+[node name="Present" type="PanelContainer" parent="Content/VBoxContainer"]
+self_modulate = Color(1, 0.803922, 0.458824, 1)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_5hote")
+script = ExtResource("7_wucjj")
+node_present_name_path = NodePath("VBoxContainer/PresentName")
+node_present_timespan_path = NodePath("VBoxContainer/PresentTimespan")
+node_future_name_path = NodePath("../Future/VBoxContainer/FutureName")
+node_future_timespan_path = NodePath("../Future/VBoxContainer/FutureTimespan")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/VBoxContainer/Present"]
+modulate = Color(0.101961, 0.109804, 0.172549, 1)
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="PresentName" type="Label" parent="Content/VBoxContainer/Present/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = SubResource("FontVariation_ub6ls")
+theme_override_font_sizes/font_size = 56
+text = "Maghrib"
+
+[node name="PresentTimespan" type="Label" parent="Content/VBoxContainer/Present/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3qbd6")
+theme_override_font_sizes/font_size = 24
+text = "4 minutes ago"
+
+[node name="Future" type="PanelContainer" parent="Content/VBoxContainer"]
+self_modulate = Color(0.101961, 0.109804, 0.172549, 1)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_5hote")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/VBoxContainer/Future"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="FutureName" type="Label" parent="Content/VBoxContainer/Future/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = SubResource("FontVariation_clvhm")
+theme_override_font_sizes/font_size = 36
+text = "First Third"
+horizontal_alignment = 2
+
+[node name="FutureTimespan" type="Label" parent="Content/VBoxContainer/Future/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_3qbd6")
+theme_override_font_sizes/font_size = 16
+text = "12 minutes later"
+horizontal_alignment = 2
+
+[node name="Slideshow" type="MarginContainer" parent="Content"]
+custom_minimum_size = Vector2(540, 540)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("5_w2bep")
+
+[node name="Notifier" type="PanelContainer" parent="."]
+visible = false
+self_modulate = Color(1, 0.803922, 0.458824, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_5hote")
+script = ExtResource("11_g8sg1")
+node_time_path = NodePath("VBoxContainer/Time")
+node_name_path = NodePath("VBoxContainer/Name")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Notifier"]
+modulate = Color(0.101961, 0.109804, 0.172549, 1)
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Subtext" type="Label" parent="Notifier/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_d5arq")
+theme_override_font_sizes/font_size = 48
+text = "T_NOTIFY_SUBTEXT"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="Notifier/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_d3tvl")
+theme_override_font_sizes/font_size = 160
+text = "MAGHRIB"
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="Notifier/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_8nw5c")
+theme_override_font_sizes/font_size = 48
+text = "12 : 34 AM"
+horizontal_alignment = 1
+
+[node name="Settings" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_85av1")
+node_file_dialog_path = NodePath("FileDialog")
+node_file_buttons_path = NodePath("PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2/Directory")
+node_slideshow_path = NodePath("../Content/Slideshow")
+node_about_path = NodePath("PanelContainer/TabContainer/About/RichTextLabel")
+node_praytimes_path_location = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Location")
+node_praytimes_path_calculation = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Calculation")
+node_praytimes_path_latitude = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Latitude")
+node_praytimes_path_shafaq = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Shafaq")
+node_praytimes_path_hanafi = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Hanafi")
+node_praytimes_path_jafari = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Jafari")
+
+[node name="FileDialog" type="FileDialog" parent="Settings"]
+title = "Open a Directory"
+size = Vector2i(960, 540)
+borderless = true
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings"]
+self_modulate = Color(0.460938, 0.460938, 0.460938, 1)
+custom_minimum_size = Vector2(480, 2.08165e-12)
+layout_mode = 2
+theme = ExtResource("12_c2xuy")
+theme_override_styles/panel = ExtResource("12_ugoyx")
+
+[node name="TabContainer" type="TabContainer" parent="Settings/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5c6v")
+current_tab = 1
+
+[node name="Menu" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Button1" type="Button" parent="Settings/PanelContainer/TabContainer/Menu"]
+layout_mode = 2
+text = "Return"
+
+[node name="Button2" type="Button" parent="Settings/PanelContainer/TabContainer/Menu"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Button3" type="Button" parent="Settings/PanelContainer/TabContainer/Menu"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Praytimes" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/PanelContainer/TabContainer/Praytimes"]
+layout_mode = 2
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label2" type="Label" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Location"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Calculation Method"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Latitude Method"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Shafaq"
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Hanafi"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Jafari"
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Location" type="LineEdit" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+placeholder_text = "Mecca, Saudi Arabia"
+expand_to_text_length = true
+caret_blink = true
+caret_blink_interval = 1.0
+
+[node name="Calculation" type="OptionButton" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 14
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Shia Ithna-Ashari"
+popup/item_0/id = 0
+popup/item_1/text = "University of Islamic Sciences, Karachi"
+popup/item_1/id = 1
+popup/item_2/text = "Islamic Society of North America"
+popup/item_2/id = 2
+popup/item_3/text = "Muslim World League"
+popup/item_3/id = 3
+popup/item_4/text = "Umm Al-Qura University, Makkah"
+popup/item_4/id = 4
+popup/item_5/text = "Egyptian General Authority of Survey"
+popup/item_5/id = 5
+popup/item_6/text = "Institute of Geophysics, University of Tehran"
+popup/item_6/id = 7
+popup/item_7/text = "Gulf Region"
+popup/item_7/id = 8
+popup/item_8/text = "Kuwait"
+popup/item_8/id = 9
+popup/item_9/text = "Qatar"
+popup/item_9/id = 10
+popup/item_10/text = "Majlis Ugama Islam Singapura, Singapore"
+popup/item_10/id = 11
+popup/item_11/text = "Union Organization islamic de France"
+popup/item_11/id = 12
+popup/item_12/text = "Diyanet İşleri Başkanlığı, Turkey"
+popup/item_12/id = 13
+popup/item_13/text = "Spiritual Administration of Muslims of Russia"
+popup/item_13/id = 14
+
+[node name="Latitude" type="OptionButton" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Middle of the Night"
+popup/item_0/id = 1
+popup/item_1/text = "One Seventh"
+popup/item_1/id = 2
+popup/item_2/text = "Angle"
+popup/item_2/id = 3
+
+[node name="Shafaq" type="OptionButton" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "General"
+popup/item_0/id = 0
+popup/item_1/text = "Ahmed"
+popup/item_1/id = 1
+popup/item_2/text = "Abyad"
+popup/item_2/id = 2
+
+[node name="Hanafi" type="OptionButton" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 2
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Not Used"
+popup/item_0/id = 0
+popup/item_1/text = "Used"
+popup/item_1/id = 1
+
+[node name="Jafari" type="OptionButton" parent="Settings/PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 2
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Not Used"
+popup/item_0/id = 0
+popup/item_1/text = "Used"
+popup/item_1/id = 1
+
+[node name="Update" type="Button" parent="Settings/PanelContainer/TabContainer/Praytimes"]
+layout_mode = 2
+text = "Update Data"
+
+[node name="Settings" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/PanelContainer/TabContainer/Settings"]
+layout_mode = 2
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer/Settings/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label1" type="Label" parent="Settings/PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Image Directory"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="Settings/PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer1"]
+layout_mode = 2
+text = "Language"
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer/Settings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Directory" type="Button" parent="Settings/PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "/"
+text_overrun_behavior = 3
+
+[node name="Language" type="OptionButton" parent="Settings/PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 2
+selected = 0
+allow_reselect = true
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Indonesia"
+popup/item_1/id = 1
+
+[node name="About" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings/PanelContainer/TabContainer/About"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Version {version}
+
+Slideshow Clock by [url=\"https://github.com/catmeowbyte\"]CatMeowByte[/url]
+Praytimes API from [url=\"https://aladhan.com\"]Al Adhan[/url]
+
+Licensed under [url=\"https://spdx.org/licenses/GPL-3.0-or-later.html\"]GNU General Public License Version 3.0 or later[/url]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Sweetie-16-1x" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(500, -81)
+scale = Vector2(61.5, 61.5)
+texture = ExtResource("15_cr25t")
+
+[connection signal="hour_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Date" method="_on_hour_updated"]
+[connection signal="marker_triggered" from="Content/VBoxContainer/Time" to="Notifier" method="_on_marker_triggered"]
+[connection signal="minute_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Present" method="_on_minute_updated"]
+[connection signal="minute_updated" from="Content/VBoxContainer/Time" to="Notifier" method="_on_minute_updated"]
+[connection signal="dir_selected" from="Settings/FileDialog" to="Settings" method="_on_file_dir_selected"]
+[connection signal="pressed" from="Settings/PanelContainer/TabContainer/Menu/Button1" to="Settings" method="_on_button_return_pressed"]
+[connection signal="pressed" from="Settings/PanelContainer/TabContainer/Menu/Button2" to="Settings" method="_on_button_fullscreen_pressed"]
+[connection signal="pressed" from="Settings/PanelContainer/TabContainer/Menu/Button3" to="Settings" method="_on_button_quit_pressed"]
+[connection signal="pressed" from="Settings/PanelContainer/TabContainer/Praytimes/Update" to="Settings" method="_on_button_praytimes_update_pressed"]
+[connection signal="pressed" from="Settings/PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2/Directory" to="Settings" method="_on_button_setting_file_pressed"]
+[connection signal="item_selected" from="Settings/PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2/Language" to="Settings" method="_on_setting_language_selected"]
+[connection signal="meta_clicked" from="Settings/PanelContainer/TabContainer/About/RichTextLabel" to="Settings" method="_on_meta_clicked"]
