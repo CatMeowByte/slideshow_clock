@@ -434,10 +434,8 @@ theme_override_styles/panel = ExtResource("12_ugoyx")
 [node name="TabContainer" type="TabContainer" parent="Settings/PanelContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_j5c6v")
-current_tab = 1
 
 [node name="Menu" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Button1" type="Button" parent="Settings/PanelContainer/TabContainer/Menu"]
@@ -453,6 +451,7 @@ layout_mode = 2
 text = "Quit"
 
 [node name="Praytimes" type="VBoxContainer" parent="Settings/PanelContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 16
 
