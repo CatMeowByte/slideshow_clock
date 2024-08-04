@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://script/main.gd" id="1_16a6b"]
 [ext_resource type="Script" path="res://script/component/praytimes.gd" id="1_ondor"]
 [ext_resource type="FontFile" uid="uid://drgbasabdvfq" path="res://font/BebasNeue-Regular.ttf" id="2_3aklg"]
+[ext_resource type="Script" path="res://script/component/cursor_autohide.gd" id="2_c0pyr"]
 [ext_resource type="Script" path="res://script/object/date.gd" id="2_yyhkw"]
 [ext_resource type="FontFile" uid="uid://dsdiyhd717i2v" path="res://font/RobotoCondensed-Regular.ttf" id="3_g03e7"]
 [ext_resource type="FontFile" uid="uid://dhibeydk3b3a5" path="res://font/RobotoCondensed-Bold.ttf" id="3_s7vn8"]
@@ -14,7 +15,6 @@
 [ext_resource type="Script" path="res://script/object/settings.gd" id="12_85av1"]
 [ext_resource type="Theme" uid="uid://wy2yk5u82e54" path="res://resource/setting.theme" id="12_c2xuy"]
 [ext_resource type="StyleBox" uid="uid://cgbcrgnbpxddj" path="res://resource/hover.stylebox" id="12_ugoyx"]
-[ext_resource type="Texture2D" uid="uid://dktqy4vw2euqg" path="res://image/sweetie-16-1x.png" id="15_cr25t"]
 
 [sub_resource type="FontVariation" id="FontVariation_fdxpj"]
 base_font = ExtResource("3_s7vn8")
@@ -81,6 +81,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_16a6b")
+
+[node name="CursorAutoHide" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+script = ExtResource("2_c0pyr")
 
 [node name="PrayTimes" type="Node" parent="."]
 script = ExtResource("1_ondor")
@@ -398,6 +404,7 @@ text = "12 : 34 AM"
 horizontal_alignment = 1
 
 [node name="Settings" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -643,12 +650,6 @@ Praytimes API from [url=\"https://aladhan.com\"]Al Adhan[/url]
 Licensed under [url=\"https://spdx.org/licenses/GPL-3.0-or-later.html\"]GNU General Public License Version 3.0 or later[/url]"
 fit_content = true
 autowrap_mode = 0
-
-[node name="Sweetie-16-1x" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(500, -81)
-scale = Vector2(61.5, 61.5)
-texture = ExtResource("15_cr25t")
 
 [connection signal="hour_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Date" method="_on_hour_updated"]
 [connection signal="marker_triggered" from="Content/VBoxContainer/Time" to="Notifier" method="_on_marker_triggered"]
