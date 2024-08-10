@@ -422,6 +422,8 @@ node_praytimes_path_latitude = NodePath("PanelContainer/TabContainer/Praytimes/H
 node_praytimes_path_shafaq = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Shafaq")
 node_praytimes_path_hanafi = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Hanafi")
 node_praytimes_path_jafari = NodePath("PanelContainer/TabContainer/Praytimes/HBoxContainer/VBoxContainer2/Jafari")
+node_display_image_path = NodePath("PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2/Directory")
+node_display_language = NodePath("PanelContainer/TabContainer/Settings/HBoxContainer/VBoxContainer2/Language")
 
 [node name="FileDialog" type="FileDialog" parent="Settings"]
 title = "Open a Directory"

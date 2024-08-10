@@ -32,6 +32,14 @@ extends Control
 @export_node_path("OptionButton") var node_praytimes_path_jafari: NodePath
 @onready var NodePraytimesJafari: OptionButton = get_node(node_praytimes_path_jafari)
 
+@export_group("Display Settings Node", "node_display_")
+
+@export_node_path("Button") var node_display_image_path: NodePath
+@onready var NodeDisplayImagePath: Button = get_node(node_display_image_path)
+
+@export_node_path("OptionButton") var node_display_language: NodePath
+@onready var NodeDisplayLanguage: OptionButton = get_node(node_display_language)
+
 
 func _ready():
 	if not PrayTimes.is_data_available():
@@ -59,7 +67,7 @@ func close():
 
 
 func open():
-	_read_praytimes()
+	_read_config()
 	visible = true
 
 
@@ -91,27 +99,33 @@ func _about_format():
 #endregion
 
 
+func _read_config():
+	Config.config_load()
+
+	# Praytimes
+	NodePraytimesLocation.text = Config.location
+	NodePraytimesCalculation.select(Config.calculation_method)
+	NodePraytimesLatitude.select(Config.latitude_method)
+	NodePraytimesShafaq.select(Config.shafaq)
+	NodePraytimesHanafi.select(int(Config.hanafi))
+	NodePraytimesJafari.select(int(Config.jafari))
+
+	# Display
+	NodeDisplayImagePath.text = Config.image_path
+	NodeDisplayLanguage.select(["en", "id"].find(Config.language))
+
+
 #region Praytimes
-func _read_praytimes():
-	var info: Dictionary = PrayTimes.get_data_info()
-
-	NodePraytimesLocation.text = info.timezone.split("/")[1]
-	NodePraytimesCalculation.select(info.calculation_method)
-	NodePraytimesLatitude.select(info.latitude_method - 1)
-	#NodePraytimesShafaq.select(info.shafaq) # No shafaq
-	NodePraytimesHanafi.select(int(info.hanafi))
-	NodePraytimesJafari.select(int(info.jafari))
-
-
 func _on_button_praytimes_update_pressed():
 	var year: int = WidgetDate.gregorian.year - int(WidgetDate.gregorian.year % 4 == 0 and (WidgetDate.gregorian.year % 100 != 0 or WidgetDate.gregorian.year % 400 == 0))
-	var location: String = NodePraytimesLocation.text
-	var calculation: int = NodePraytimesCalculation.get_selected_id()
-	var latitude: int = NodePraytimesLatitude.get_selected_id()
-	var shafaq: int = NodePraytimesShafaq.get_selected_id()
-	var hanafi: bool = bool(NodePraytimesHanafi.get_selected_id())
-	var jafari: bool = bool(NodePraytimesJafari.get_selected_id())
-	PrayTimes.download_data(year, location, calculation, latitude, shafaq, false, false)
+	Config.location = NodePraytimesLocation.text
+	Config.calculation_method = NodePraytimesCalculation.get_selected_id()
+	Config.latitude_method = NodePraytimesLatitude.get_selected_id()
+	Config.shafaq = NodePraytimesShafaq.get_selected_id()
+	Config.hanafi = bool(NodePraytimesHanafi.get_selected_id())
+	Config.jafari = bool(NodePraytimesJafari.get_selected_id())
+	Config.config_save()
+	PrayTimes.download_data(year, Config.location, Config.calculation_method, Config.latitude_method, Config.shafaq, Config.hanafi, Config.jafari)
 #endregion
 
 
@@ -124,16 +138,17 @@ func _on_file_dir_selected(dir: String):
 	NodeFileButtons.text = dir
 	NodeFileButtons.tooltip_text = dir
 
+	Config.image_path = dir
+	Config.config_save()
+
 	NodeSlideshow.image_path = dir
 	NodeSlideshow.slideshow_start()
 
 
 func _on_setting_language_selected(index: int):
-	match index:
-		0:
-			TranslationServer.set_locale("en")
-		1:
-			TranslationServer.set_locale("id")
-		_:
-			printerr("Translation unavailable.")
+	var language = ["en", "id"][index]
+	TranslationServer.set_locale(language)
+
+	Config.language = language
+	Config.config_save()
 #endregion

@@ -42,32 +42,19 @@ const FILE_DATA: String = "praytimes.dictionary"
 
 static var HTTP: HTTPRequest
 
-static var input_year: int = 0
-static var input_geocode: String = "London"
-static var input_calculation_method: CalculationMethod = 0
-static var input_latitude_method: LatitudeMethod = 0
-static var input_shafaq: Shafaq = 0
-static var input_hanafi: bool = false
-static var input_jafari: bool = false
-
 
 static func is_data_available():
 	return FileAccess.file_exists(FILE_DIR + "/" + FILE_DATA)
 
 
 static func download_data(year: int, geocode: String, calculation_method: CalculationMethod, latitude_method: LatitudeMethod, shafaq: Shafaq, hanafi: bool, jafari: bool):
-	input_year = year
-	input_geocode = geocode
-	input_calculation_method = calculation_method
-	input_latitude_method = clamp(latitude_method, 1, 3) # Mistakes makes it 0
-	input_shafaq = shafaq
-	input_hanafi = hanafi
-	input_jafari = jafari
+	# Sanitize
+	latitude_method = clamp(latitude_method, 1, 3) # Mistakes makes it 0
 
 	# Print
 	print("Downloading data...")
 
-	_do_request()
+	_do_request(year, geocode, calculation_method, latitude_method, shafaq, hanafi, jafari)
 
 
 static func get_data_info():
@@ -133,15 +120,15 @@ func _ready():
 	DirAccess.make_dir_recursive_absolute(FILE_DIR)
 
 
-static func _do_request():
+static func _do_request(year: int, geocode: String, calculation_method: CalculationMethod, latitude_method: LatitudeMethod, shafaq: Shafaq, hanafi: bool, jafari: bool):
 	var url: String = API_URL.format({
-			"year": str(input_year),
-			"geocode": str(input_geocode),
-			"calculation_method": str(input_calculation_method),
-			"latitude_method": str(input_latitude_method),
-			"shafaq": str({0: "general", 1: "ahmer", 2: "abyad"}[input_shafaq]),
-			"hanafi": str(int(input_hanafi)),
-			"jafari": str(int(input_jafari)),
+			"year": str(year),
+			"geocode": str(geocode),
+			"calculation_method": str(calculation_method),
+			"latitude_method": str(latitude_method),
+			"shafaq": str({0: "general", 1: "ahmer", 2: "abyad"}[shafaq]),
+			"hanafi": str(int(hanafi)),
+			"jafari": str(int(jafari)),
 		})
 	var request = HTTP.request(url)
 
@@ -155,9 +142,9 @@ static func _do_request():
 func _on_request_completed(result, _response_code, _headers, body):
 	var request_retry: Callable = func (message: String):
 		printerr(message)
-		print("Retrying request...")
-		await get_tree().create_timer(5).timeout
-		_do_request()
+		#print("Retrying request...")
+		#await get_tree().create_timer(5).timeout
+		#_do_request()
 		return
 
 	if not result == HTTPRequest.RESULT_SUCCESS:
