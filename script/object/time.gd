@@ -35,7 +35,7 @@ func _ready():
 	second_updated.connect(_on_second_updated)
 
 
-func _process(delta):
+func _process(_delta):
 	var system_time: Dictionary = Time.get_time_dict_from_system()
 
 	# Debug

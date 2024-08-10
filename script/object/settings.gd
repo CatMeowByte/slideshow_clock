@@ -49,7 +49,7 @@ func _ready():
 	close()
 
 
-func _input(event: InputEvent):
+func _input(_event: InputEvent):
 	if Input.is_action_just_released("ui_cancel"):
 		if visible:
 			close()
@@ -105,7 +105,7 @@ func _read_config():
 	# Praytimes
 	NodePraytimesLocation.text = Config.location
 	NodePraytimesCalculation.select(Config.calculation_method)
-	NodePraytimesLatitude.select(Config.latitude_method)
+	NodePraytimesLatitude.select(NodePraytimesLatitude.get_item_index(Config.latitude_method))
 	NodePraytimesShafaq.select(Config.shafaq)
 	NodePraytimesHanafi.select(int(Config.hanafi))
 	NodePraytimesJafari.select(int(Config.jafari))

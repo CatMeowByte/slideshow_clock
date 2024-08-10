@@ -76,7 +76,7 @@ func config_set(reset: bool = false):
 	if reset:
 		config.clear()
 		config.save(CONFIG_PATH)
-	config_load()
-	config_save() # Precaution if no file exist
+	Config.config_load()
+	Config.config_save() # Precaution if no file exist
 	await get_tree().process_frame # Wait next frame
 	config_updated.emit()
