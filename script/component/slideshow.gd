@@ -68,7 +68,6 @@ func slideshow_start():
 
 func _slide(index: int = 0):
 	var file = image_path + ("" if image_path.ends_with("/") else "/") + _image_files[index]
-	print(file)
 
 	# Early bail
 	if not FileAccess.file_exists(file):

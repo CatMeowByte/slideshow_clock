@@ -43,7 +43,7 @@ extends Control
 
 func _ready():
 	if not PrayTimes.is_data_available():
-		PrayTimes.download_data(2000, "London", 0, 1, 0, false, false)
+		PrayTimes.download_data(2001, "London", 0, 1, 0, false, false)
 
 	_about_format()
 	close()

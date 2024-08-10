@@ -19,7 +19,7 @@ func _on_minute_updated():
 		return
 
 	if WidgetDate.gregorian.month == -1 or WidgetDate.gregorian.day == -1:
-		await get_tree().process_frame
+		return
 
 	var praytimes: Dictionary = PrayTimes.get_praytimes(WidgetDate.gregorian.month, WidgetDate.gregorian.day)
 	if not praytimes:

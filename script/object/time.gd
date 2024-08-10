@@ -64,6 +64,9 @@ func _on_minute_updated():
 	NodeMinute.text = str(time.minute).pad_zeros(2)
 
 
+	if WidgetDate.gregorian.month == -1 or WidgetDate.gregorian.day == -1:
+		return
+
 	var praytimes = PrayTimes.get_praytimes(WidgetDate.gregorian.month, WidgetDate.gregorian.day)
 	if not praytimes:
 		return

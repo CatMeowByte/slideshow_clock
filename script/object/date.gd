@@ -39,7 +39,7 @@ static var hijri: Dictionary = {
 }
 
 
-func _on_hour_updated():
+func _on_minute_updated():
 	# Early bail
 	if not PrayTimes.is_data_available():
 		return

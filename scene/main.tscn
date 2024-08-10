@@ -658,8 +658,8 @@ fit_content = true
 autowrap_mode = 0
 
 [connection signal="config_updated" from="Config" to="Settings" method="_on_config_updated"]
-[connection signal="hour_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Date" method="_on_hour_updated"]
 [connection signal="marker_triggered" from="Content/VBoxContainer/Time" to="Notifier" method="_on_marker_triggered"]
+[connection signal="minute_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Date" method="_on_minute_updated"]
 [connection signal="minute_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Present" method="_on_minute_updated"]
 [connection signal="minute_updated" from="Content/VBoxContainer/Time" to="Notifier" method="_on_minute_updated"]
 [connection signal="dir_selected" from="Settings/FileDialog" to="Settings" method="_on_file_dir_selected"]

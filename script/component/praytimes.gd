@@ -142,9 +142,10 @@ static func _do_request(year: int, geocode: String, calculation_method: Calculat
 func _on_request_completed(result, _response_code, _headers, body):
 	var request_retry: Callable = func (message: String):
 		printerr(message)
-		#print("Retrying request...")
-		#await get_tree().create_timer(5).timeout
-		#_do_request()
+		print("Retrying request...")
+		await get_tree().create_timer(5).timeout
+		var year: int = WidgetDate.gregorian.year - int(WidgetDate.gregorian.year % 4 == 0 and (WidgetDate.gregorian.year % 100 != 0 or WidgetDate.gregorian.year % 400 == 0))
+		_do_request(year, Config.location, Config.calculation_method, Config.latitude_method, Config.shafaq, Config.hanafi, Config.jafari)
 		return
 
 	if not result == HTTPRequest.RESULT_SUCCESS:
