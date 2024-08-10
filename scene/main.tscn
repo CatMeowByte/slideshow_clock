@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://evdfx6qqlyv4"]
+[gd_scene load_steps=28 format=3 uid="uid://evdfx6qqlyv4"]
 
 [ext_resource type="StyleBox" uid="uid://cgr2rtggk7ycp" path="res://resource/padded.stylebox" id="1_5hote"]
 [ext_resource type="Script" path="res://script/main.gd" id="1_16a6b"]
 [ext_resource type="Script" path="res://script/component/praytimes.gd" id="1_ondor"]
 [ext_resource type="FontFile" uid="uid://drgbasabdvfq" path="res://font/BebasNeue-Regular.ttf" id="2_3aklg"]
 [ext_resource type="Script" path="res://script/component/cursor_autohide.gd" id="2_c0pyr"]
+[ext_resource type="Script" path="res://script/component/config.gd" id="2_nkrsk"]
 [ext_resource type="Script" path="res://script/object/date.gd" id="2_yyhkw"]
 [ext_resource type="FontFile" uid="uid://dsdiyhd717i2v" path="res://font/RobotoCondensed-Regular.ttf" id="3_g03e7"]
 [ext_resource type="FontFile" uid="uid://dhibeydk3b3a5" path="res://font/RobotoCondensed-Bold.ttf" id="3_s7vn8"]
@@ -81,6 +82,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_16a6b")
+
+[node name="Config" type="Node" parent="."]
+script = ExtResource("2_nkrsk")
 
 [node name="CursorAutoHide" type="Timer" parent="."]
 wait_time = 30.0
@@ -653,6 +657,7 @@ Licensed under [url=\"https://spdx.org/licenses/GPL-3.0-or-later.html\"]GNU Gene
 fit_content = true
 autowrap_mode = 0
 
+[connection signal="config_updated" from="Config" to="Settings" method="_on_config_updated"]
 [connection signal="hour_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Date" method="_on_hour_updated"]
 [connection signal="marker_triggered" from="Content/VBoxContainer/Time" to="Notifier" method="_on_marker_triggered"]
 [connection signal="minute_updated" from="Content/VBoxContainer/Time" to="Content/VBoxContainer/Present" method="_on_minute_updated"]

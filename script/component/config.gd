@@ -2,11 +2,11 @@ class_name Config
 extends Node
 ## Configuration
 
-signal setting_updated
+signal config_updated
 
 static var config = ConfigFile.new()
 
-const CONFIG_PATH = "user://setting.config"
+const CONFIG_PATH = "user://settings.config"
 
 #region Setting Variable
 # Display
@@ -78,5 +78,5 @@ func config_set(reset: bool = false):
 		config.save(CONFIG_PATH)
 	config_load()
 	config_save() # Precaution if no file exist
-	#await get_tree().process_frame # Wait next frame
-	setting_updated.emit()
+	await get_tree().process_frame # Wait next frame
+	config_updated.emit()

@@ -15,10 +15,14 @@ extends MarginContainer
 # List of image files
 var _image_files: Array
 
-func _ready():
+
+func slideshow_start():
+	if not image_path:
+		return
+
 	# Clean nodes
 	for child in get_children():
-		child.queue_free()
+		child.free()
 
 	# Create nodes
 	for i in range(2):
@@ -33,14 +37,6 @@ func _ready():
 		texture.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		scroll.add_child(texture)
 
-	await get_tree().process_frame
-	slideshow_start()
-
-
-func slideshow_start():
-	if not image_path:
-		return
-
 	var dir = DirAccess.open(image_path)
 
 	# Early bail
@@ -49,6 +45,7 @@ func slideshow_start():
 		return
 
 	# Scan files
+	_image_files.clear()
 	dir.list_dir_begin()
 	var file = dir.get_next()
 	while file != "":
@@ -58,6 +55,11 @@ func slideshow_start():
 				_image_files.append(file)
 		file = dir.get_next()
 
+	# Precaution if no images
+	if not _image_files:
+		printerr("No image in directory: ", image_path)
+		return
+
 	_image_files.shuffle()
 
 	# Start
@@ -66,6 +68,7 @@ func slideshow_start():
 
 func _slide(index: int = 0):
 	var file = image_path + ("" if image_path.ends_with("/") else "/") + _image_files[index]
+	print(file)
 
 	# Early bail
 	if not FileAccess.file_exists(file):

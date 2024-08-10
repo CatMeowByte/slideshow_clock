@@ -141,14 +141,24 @@ func _on_file_dir_selected(dir: String):
 	Config.image_path = dir
 	Config.config_save()
 
-	NodeSlideshow.image_path = dir
+	NodeSlideshow.image_path = Config.image_path
+	print(NodeSlideshow.image_path)
 	NodeSlideshow.slideshow_start()
 
 
 func _on_setting_language_selected(index: int):
 	var language = ["en", "id"][index]
-	TranslationServer.set_locale(language)
 
 	Config.language = language
 	Config.config_save()
+
+	TranslationServer.set_locale(Config.language)
 #endregion
+
+
+func _on_config_updated():
+	NodeSlideshow.image_path = Config.image_path
+	print(NodeSlideshow.image_path)
+	NodeSlideshow.slideshow_start()
+
+	TranslationServer.set_locale(Config.language)
