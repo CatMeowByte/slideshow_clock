@@ -103,6 +103,13 @@ static func get_praytimes(month: int, day: int):
 
 	var file = FileAccess.open(FILE_DIR + "/" + FILE_DATA, FileAccess.READ)
 	var data0 = str_to_var(file.get_as_text())
+
+	# Check if data is correct
+	if not data0.code == 200:
+		printerr(data0.status)
+		print_verbose(data0.data)
+		return
+
 	var data1 = data0["data"]
 	var data2 = data1[str(month)]
 	var data3 = data2[int(day - 1)]
@@ -127,8 +134,7 @@ func _ready():
 
 
 static func _do_request():
-	var request = HTTP.request(
-		API_URL.format({
+	var url: String = API_URL.format({
 			"year": str(input_year),
 			"geocode": str(input_geocode),
 			"calculation_method": str(input_calculation_method),
@@ -137,7 +143,11 @@ static func _do_request():
 			"hanafi": str(int(input_hanafi)),
 			"jafari": str(int(input_jafari)),
 		})
-	)
+	var request = HTTP.request(url)
+
+	print_verbose("Requesting:")
+	print_verbose(url)
+
 	if not request == OK:
 		printerr("Attempt to request failed.")
 
@@ -156,6 +166,11 @@ func _on_request_completed(result, _response_code, _headers, body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	if not data:
 		request_retry.call("JSON parse failed.")
+
+	if not data.code == 200:
+		printerr(data.status)
+		print_verbose(data.data)
+		request_retry.call("Data failed.")
 
 	var file = FileAccess.open(FILE_DIR + "/" + FILE_DATA, FileAccess.WRITE)
 	file.store_string(var_to_str(data))

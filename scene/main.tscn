@@ -83,7 +83,7 @@ grow_vertical = 2
 script = ExtResource("1_16a6b")
 
 [node name="CursorAutoHide" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 30.0
 one_shot = true
 autostart = true
 script = ExtResource("2_c0pyr")
