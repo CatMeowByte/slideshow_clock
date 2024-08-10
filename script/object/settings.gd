@@ -117,7 +117,14 @@ func _read_config():
 
 #region Praytimes
 func _on_button_praytimes_update_pressed():
-	var year: int = WidgetDate.gregorian.year - int(WidgetDate.gregorian.year % 4 == 0 and (WidgetDate.gregorian.year % 100 != 0 or WidgetDate.gregorian.year % 400 == 0))
+	#var year: int = WidgetDate.gregorian.year - int(WidgetDate.gregorian.year % 4 == 0 and (WidgetDate.gregorian.year % 100 != 0 or WidgetDate.gregorian.year % 400 == 0))
+	var current_year = Time.get_date_dict_from_system().year # WidgetDate.gregorian.year is unreliable as its sometimes -1
+	var divisible_by_4 = current_year % 4 == 0
+	var not_divisible_by_100 = current_year % 100 != 0
+	var divisible_by_400 = current_year % 400 == 0
+	var is_leap_year = divisible_by_4 and (not_divisible_by_100 or divisible_by_400)
+	var year = current_year - int(is_leap_year)
+
 	Config.location = NodePraytimesLocation.text
 	Config.calculation_method = NodePraytimesCalculation.get_selected_id()
 	Config.latitude_method = NodePraytimesLatitude.get_selected_id()

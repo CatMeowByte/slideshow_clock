@@ -144,7 +144,13 @@ func _on_request_completed(result, _response_code, _headers, body):
 		printerr(message)
 		print("Retrying request...")
 		await get_tree().create_timer(5).timeout
-		var year: int = WidgetDate.gregorian.year - int(WidgetDate.gregorian.year % 4 == 0 and (WidgetDate.gregorian.year % 100 != 0 or WidgetDate.gregorian.year % 400 == 0))
+		var current_year = Time.get_date_dict_from_system().year # WidgetDate.gregorian.year is unreliable as its sometimes -1
+		var divisible_by_4 = current_year % 4 == 0
+		var not_divisible_by_100 = current_year % 100 != 0
+		var divisible_by_400 = current_year % 400 == 0
+		var is_leap_year = divisible_by_4 and (not_divisible_by_100 or divisible_by_400)
+		var year = current_year - int(is_leap_year)
+
 		_do_request(year, Config.location, Config.calculation_method, Config.latitude_method, Config.shafaq, Config.hanafi, Config.jafari)
 		return
 
