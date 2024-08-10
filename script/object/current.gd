@@ -25,6 +25,12 @@ func _on_minute_updated():
 	if not praytimes:
 		return
 
+	# Remove uninteresting time
+	praytimes.erase("Sunset")
+	praytimes.erase("Firstthird")
+	praytimes.erase("Midnight")
+	praytimes.erase("Imsak")
+
 	# Find closest high low
 	var time_minute_base: int = (WidgetTime.time.hour * 60) + WidgetTime.time.minute
 	var praytimes_sorted: Array = praytimes.values()
