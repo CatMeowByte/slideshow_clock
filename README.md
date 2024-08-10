@@ -21,8 +21,6 @@ Press `[Esc]` to open the menu.
 + Navigate to settings and set the directory of where the collection images to be shown in the slideshow (non recursive)
 + Now the device can be left offline
 
-Settings is not saved when closing the application.
-
 # Credits
 
 Prayer times from [Al Adhan](https://aladhan.com "Al Adhan")
